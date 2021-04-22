@@ -1,0 +1,5 @@
+need to add
+
+- Edit option(CRUD){edit} {view/read and delete are 👍[DONE]}
+- View option(view or detailed page of each entry!)  👍{DONE} [same as above, I guess?]
+- Description(subtitle of ListTile is overloading(need to fix that)) 👍{DONE}

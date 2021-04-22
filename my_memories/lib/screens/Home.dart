@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/success.dart';
-import '../widgets/failure.dart';
+import 'success.dart';
+import 'failure.dart';
+import '../widgets/appbar_drawer.dart';
 
-Map<String, String> successMap = {};
 Map<String, String> failureMap = {};
 
 class Home extends StatelessWidget {
-  static const routeName = '/';
   final List<Widget> tabsData = [
-    SuccessPage(
-      dataMap: successMap,
-    ),
-    FailurePage(
-      dataMap: failureMap,
-    ),
+    SuccessPage(),
+    FailurePage(),
   ];
 
   final List<Widget> tabs = [
@@ -30,7 +25,13 @@ class Home extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) {
           return Scaffold(
+            drawer: Drawer(
+              child: Center(
+                child: Text('Hello Friends Chai Peelo!!'),
+              ),
+            ),
             appBar: AppBar(
+              leading: MyAppDrawer(),
               title: Center(child: Text('My Memories')),
             ),
             body: TabBarView(
