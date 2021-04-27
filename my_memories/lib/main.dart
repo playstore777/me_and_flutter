@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-import './screens/home.dart';
+import 'screens/home.dart';
 import 'screens/success.dart';
 import 'screens/failure.dart';
-import './screens/data_input_page.dart';
-import './providers/success_provider.dart';
-import './providers/failure_provider.dart';
+import 'screens/data_input_page.dart';
+import 'screens/auth_screen.dart';
+import 'providers/success_provider.dart';
+import 'providers/failure_provider.dart';
+import 'providers/auth.dart';
+import 'models/entry.dart';
 
 import 'package:provider/provider.dart';
 
@@ -20,24 +23,40 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (ctx) => SuccessProvider(),
+          create: (ctx) => Auth(),
         ),
-        ChangeNotifierProvider(
-          create: (ctx) => FailureProvider(),
+        ChangeNotifierProxyProvider<Auth, SuccessProvider>(
+          create: null,
+          update: (ctx, authToken, previousData) => SuccessProvider(
+            authToken.token,
+            authToken.authUserId,
+            previousData == null ? <Entry>[] : previousData as List<Entry>,
+          ),
+        ),
+        ChangeNotifierProxyProvider<Auth, FailureProvider>(
+          create: null,
+          update: (ctx, authToken, previousData) => FailureProvider(
+            authToken.token,
+            previousData == null ? <Entry>[] : previousData as List<Entry>,
+          ),
         )
       ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.red,
-          ),
-          routes: {
-            '/': (_) => Home(),
-            SuccessPage.routeName: (_) => SuccessPage(),
-            FailurePage.routeName: (_) => FailurePage(),
-            DataInputPage.routeName: (_) => DataInputPage(),
-          }),
+      child: Consumer<Auth>(
+        builder: (ctx, authData, child) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primarySwatch: Colors.red,
+            ),
+            // home: authData.isAuth ? Home() : AuthScreen(),
+            // home: Home(),
+            routes: {
+              '/': (_) => authData.isAuth ? Home() : AuthScreen(),
+              SuccessPage.routeName: (_) => SuccessPage(),
+              FailurePage.routeName: (_) => FailurePage(),
+              DataInputPage.routeName: (_) => DataInputPage(),
+            }),
+      ),
     );
   }
 }

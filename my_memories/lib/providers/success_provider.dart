@@ -6,6 +6,9 @@ import 'package:http/http.dart' as http;
 import '../models/entry.dart';
 
 class SuccessProvider with ChangeNotifier {
+  final String _authToken;
+  final String authUserId;
+  SuccessProvider(this._authToken, this.authUserId, this._successList);
   List<Entry> _successList = [
 //     Entry(
 //       id: 's1',
@@ -53,13 +56,18 @@ class SuccessProvider with ChangeNotifier {
   }
 
   Future<void> fetchEntries() async {
-    const url =
-        'https://events-5eddb-default-rtdb.firebaseio.com/success_entry.json';
+    // print('token: $_authToken');
+    final url =
+        'https://events-5eddb-default-rtdb.firebaseio.com/success_entry.json?auth=$_authToken&orderBy="userId"&equalTo="$authUserId"';
     try {
       final response = await http.get(Uri.parse(url));
       final responseBody = json.decode(response.body) as Map<String, dynamic>;
       // call it as extractedData and instead of dynamic we can also use Object, but not a nested map,
       // even though we are getting a nested map, because dart doesn't understand that!
+      if (responseBody == null) {
+        // print('responseBody : $responseBody');
+        return;
+      }
       final List<Entry> tempList = [];
       responseBody.forEach(
         (entryId, entryData) {
@@ -77,7 +85,7 @@ class SuccessProvider with ChangeNotifier {
       notifyListeners();
       // print(json.decode(response.body));
     } catch (error) {
-      print(error);
+      print('fetchWala error : $error');
       throw (error);
     }
   }
@@ -88,8 +96,8 @@ class SuccessProvider with ChangeNotifier {
     String description,
     DateTime date,
   }) async {
-    const url =
-        'https://events-5eddb-default-rtdb.firebaseio.com/success_entry.json';
+    final url =
+        'https://events-5eddb-default-rtdb.firebaseio.com/success_entry.json?auth=$_authToken';
     try {
       final response = await http.post(
         Uri.parse(url),
@@ -97,7 +105,8 @@ class SuccessProvider with ChangeNotifier {
           {
             'title': title,
             'description': description,
-            'date': date.toString(),
+            'date': date.toIso8601String(),
+            'userId': authUserId,
           },
         ),
       );
@@ -128,14 +137,14 @@ class SuccessProvider with ChangeNotifier {
     DateTime date,
   }) async {
     final url =
-        'https://events-5eddb-default-rtdb.firebaseio.com/success_entry/$id.json';
+        'https://events-5eddb-default-rtdb.firebaseio.com/success_entry/$id.json?auth=$_authToken';
     print('id : $id');
     try {
       await http.patch(Uri.parse(url),
           body: json.encode({
             'title': title,
             'description': description,
-            'date': date.toString(),
+            'date': date.toIso8601String(),
           }));
       final index = _successList.indexWhere(
         (entry) => entry.id == id,

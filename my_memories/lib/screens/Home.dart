@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'success.dart';
 import 'failure.dart';
 import '../widgets/appbar_drawer.dart';
+import '../providers/auth.dart';
 
-Map<String, String> failureMap = {};
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   final List<Widget> tabsData = [
@@ -33,6 +34,21 @@ class Home extends StatelessWidget {
             appBar: AppBar(
               leading: MyAppDrawer(),
               title: Center(child: Text('My Memories')),
+              actions: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text('LogOut'),
+                    IconButton(
+                      icon: Icon(Icons.logout),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Provider.of<Auth>(context, listen: false).logout();
+                        Navigator.of(context).pushReplacementNamed('/');
+                      },
+                    ),
+                  ],
+                )
+              ],
             ),
             body: TabBarView(
               children: tabsData,
