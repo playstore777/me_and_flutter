@@ -13,11 +13,15 @@ class _DataScreenState extends State<DataScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final data =
+        ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
+    final title = data['title'];
+    final Map<String, String> dataMap = data['dataMap'];
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: const Text('Category'),
+        title: Text(title),
         actions: [
           (isSwitch)
               ? const Center(
@@ -67,20 +71,26 @@ class _DataScreenState extends State<DataScreen> {
               ),
             )
           : ListView.builder(
-              itemCount: 50,
-              itemBuilder: (context, index) => ListTile(
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    DataDetailsScreen.routeName,
-                    arguments: {
-                      'title': 'Type B Title here',
-                    },
-                  );
-                },
-                title: Text('Type B Title here'),
-                subtitle: Text(
-                    'Little bit of description, tappable..........................................................................................................................'),
-              ),
+              // Issue is here!
+              itemCount: dataMap.length,
+              itemBuilder: (context, index) {
+                return dataMap.forEach((key, value) => ListTile(
+                      title: Text(key),
+                    ));
+                // return ListTile(
+                //   onTap: () {
+                //     Navigator.of(context).pushNamed(
+                //       DataDetailsScreen.routeName,
+                //       arguments: {
+                //         'title': 'Type B Title here',
+                //       },
+                //     );
+                //   },
+                //   title: Text('Type B Title here'),
+                //   subtitle: Text(
+                //       'Little bit of description, tappable..........................................................................................................................'),
+                // );
+              },
             ),
     );
   }

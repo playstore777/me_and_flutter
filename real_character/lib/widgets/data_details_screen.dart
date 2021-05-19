@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_character/components/constants.dart';
 
 class DataDetailsScreen extends StatelessWidget {
   static const routeName = '/Data-Details-Screen';

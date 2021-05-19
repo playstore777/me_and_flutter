@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:real_character/widgets/data_details_screen.dart';
 
+import './widgets/data_details_screen.dart';
 import './widgets/home.dart';
 import './widgets/data_screen.dart';
 

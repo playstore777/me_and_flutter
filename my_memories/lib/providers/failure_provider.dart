@@ -6,8 +6,9 @@ import 'package:http/http.dart' as http;
 import '../models/entry.dart';
 
 class FailureProvider with ChangeNotifier {
-  final String authToken;
-  FailureProvider(this.authToken, this._failureList);
+  final String _authToken;
+  final String authUserId;
+  FailureProvider(this._authToken, this.authUserId, this._failureList);
   List<Entry> _failureList = [];
 
   List<Entry> get failureList {
@@ -16,7 +17,7 @@ class FailureProvider with ChangeNotifier {
 
   Future<void> fetchEntries() async {
     final url =
-        'https://events-5eddb-default-rtdb.firebaseio.com/failure_entry.json?auth=$authToken';
+        'https://events-5eddb-default-rtdb.firebaseio.com/failure_entry.json?auth=$_authToken&orderBy="userId"&equalTo="$authUserId"';
     try {
       final response = await http.get(Uri.parse(url));
       final responseBody = json.decode(response.body) as Map<String, dynamic>;
@@ -51,14 +52,19 @@ class FailureProvider with ChangeNotifier {
     DateTime date,
   }) async {
     final url =
-        'https://events-5eddb-default-rtdb.firebaseio.com/failure_entry.json?auth=$authToken';
+        'https://events-5eddb-default-rtdb.firebaseio.com/failure_entry.json?auth=$_authToken';
     try {
-      final response = await http.post(Uri.parse(url),
-          body: json.encode({
+      final response = await http.post(
+        Uri.parse(url),
+        body: json.encode(
+          {
             'title': title,
             'description': description,
             'date': date.toIso8601String(),
-          }));
+            'userId': authUserId,
+          },
+        ),
+      );
       _failureList.add(Entry(
         id: json.decode(response.body)['name'],
         title: title,
@@ -86,7 +92,7 @@ class FailureProvider with ChangeNotifier {
     DateTime date,
   }) async {
     final url =
-        'https://events-5eddb-default-rtdb.firebaseio.com/failure_entry/$id.json?auth=$authToken';
+        'https://events-5eddb-default-rtdb.firebaseio.com/failure_entry/$id.json?auth=$_authToken';
     try {
       http.patch(Uri.parse(url),
           body: json.encode({

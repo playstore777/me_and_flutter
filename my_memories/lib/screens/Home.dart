@@ -35,19 +35,21 @@ class Home extends StatelessWidget {
               leading: MyAppDrawer(),
               title: Center(child: Text('My Memories')),
               actions: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text('LogOut'),
-                    IconButton(
-                      icon: Icon(Icons.logout),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        Provider.of<Auth>(context, listen: false).logout();
-                        Navigator.of(context).pushReplacementNamed('/');
-                      },
+                GestureDetector(
+                  onTap: () {
+                    // Navigator.of(context).pop();
+                    Provider.of<Auth>(context, listen: false).logout();
+                    // Navigator.of(context).pushReplacementNamed('/');
+                  },
+                  child: Container(
+                    child: Row(
+                      children: <Widget>[
+                        Text('LogOut'),
+                        Icon(Icons.logout),
+                      ],
                     ),
-                  ],
-                )
+                  ),
+                ),
               ],
             ),
             body: TabBarView(

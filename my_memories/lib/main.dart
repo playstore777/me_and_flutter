@@ -8,7 +8,6 @@ import 'screens/auth_screen.dart';
 import 'providers/success_provider.dart';
 import 'providers/failure_provider.dart';
 import 'providers/auth.dart';
-import 'models/entry.dart';
 
 import 'package:provider/provider.dart';
 
@@ -27,17 +26,18 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<Auth, SuccessProvider>(
           create: null,
-          update: (ctx, authToken, previousData) => SuccessProvider(
-            authToken.token,
-            authToken.authUserId,
-            previousData == null ? <Entry>[] : previousData as List<Entry>,
+          update: (ctx, auth, previousData) => SuccessProvider(
+            auth.token,
+            auth.authUserId,
+            previousData == null ? [] : previousData.successList,
           ),
         ),
         ChangeNotifierProxyProvider<Auth, FailureProvider>(
           create: null,
-          update: (ctx, authToken, previousData) => FailureProvider(
-            authToken.token,
-            previousData == null ? <Entry>[] : previousData as List<Entry>,
+          update: (ctx, auth, previousData) => FailureProvider(
+            auth.token,
+            auth.authUserId,
+            previousData == null ? [] : previousData.failureList,
           ),
         )
       ],
@@ -51,7 +51,18 @@ class MyApp extends StatelessWidget {
             // home: authData.isAuth ? Home() : AuthScreen(),
             // home: Home(),
             routes: {
-              '/': (_) => authData.isAuth ? Home() : AuthScreen(),
+              '/': (_) => authData.isAuth
+                  ? Home()
+                  : FutureBuilder(
+                      future: authData.autoLogin(),
+                      builder: (ctx, authResultSnapshot) =>
+                          authResultSnapshot.connectionState ==
+                                  ConnectionState.waiting
+                              ? Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : AuthScreen(),
+                    ),
               SuccessPage.routeName: (_) => SuccessPage(),
               FailurePage.routeName: (_) => FailurePage(),
               DataInputPage.routeName: (_) => DataInputPage(),
