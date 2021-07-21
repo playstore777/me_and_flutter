@@ -11,10 +11,10 @@ class DataDetailsScreen extends StatelessWidget {
         ModalRoute.of(context).settings.arguments as Map<String, Object>;
     final title = routeArgs['title'];
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      // backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: Text(title),
-        backgroundColor: Colors.transparent,
+        // backgroundColor: Colors.transparent,
       ),
       body: Container(
           child: FittedBox(

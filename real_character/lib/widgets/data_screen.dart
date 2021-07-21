@@ -16,11 +16,11 @@ class _DataScreenState extends State<DataScreen> {
     final data =
         ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
     final title = data['title'];
-    final Map<String, String> dataMap = data['dataMap'];
+    // final Map<String, String> dataMap = data['dataMap'];
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      // backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        // backgroundColor: Colors.transparent,
         title: Text(title),
         actions: [
           (isSwitch)
@@ -72,24 +72,25 @@ class _DataScreenState extends State<DataScreen> {
             )
           : ListView.builder(
               // Issue is here!
-              itemCount: dataMap.length,
+              itemCount: 30,
+              // dataMap.length,
               itemBuilder: (context, index) {
-                return dataMap.forEach((key, value) => ListTile(
-                      title: Text(key),
-                    ));
-                // return ListTile(
-                //   onTap: () {
-                //     Navigator.of(context).pushNamed(
-                //       DataDetailsScreen.routeName,
-                //       arguments: {
-                //         'title': 'Type B Title here',
-                //       },
-                //     );
-                //   },
-                //   title: Text('Type B Title here'),
-                //   subtitle: Text(
-                //       'Little bit of description, tappable..........................................................................................................................'),
-                // );
+                //   return dataMap.forEach((key, value) => ListTile(
+                //         title: Text(key),
+                //       ));
+                return ListTile(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      DataDetailsScreen.routeName,
+                      arguments: {
+                        'title': 'Type B Title here',
+                      },
+                    );
+                  },
+                  title: Text('Type B Title here'),
+                  subtitle: Text(
+                      'Little bit of description, tappable..........................................................................................................................'),
+                );
               },
             ),
     );

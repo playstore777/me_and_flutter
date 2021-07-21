@@ -8,10 +8,13 @@ import 'screens/auth_screen.dart';
 import 'providers/success_provider.dart';
 import 'providers/failure_provider.dart';
 import 'providers/auth.dart';
+// import 'auth/auth_screen_sdk.dart';
 
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
@@ -49,7 +52,13 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.red,
             ),
             // home: authData.isAuth ? Home() : AuthScreen(),
-            // home: Home(),
+            // home: StreamBuilder(
+            //   stream: FirebaseAuth.instance.authStateChanges(),
+            //   builder: (ctx, userSnapshot) {
+            //     if (userSnapshot.hasData) return Home();
+            //     return AuthScreenSDK();
+            //   },
+            // ),
             routes: {
               '/': (_) => authData.isAuth
                   ? Home()
