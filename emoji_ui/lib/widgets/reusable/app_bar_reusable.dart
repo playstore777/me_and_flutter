@@ -18,8 +18,8 @@ class AppBarReusable extends StatelessWidget {
           ),
           if (!isIcon)
             Container(
-              width: 30,
-              height: 30,
+              width: 35,
+              height: 35,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.blue[200],
@@ -29,17 +29,45 @@ class AppBarReusable extends StatelessWidget {
               ),
             ),
           if (isIcon)
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.redAccent[100],
-              ),
-              child: Icon(
-                Icons.shopping_cart_outlined,
-                color: Colors.white,
-              ),
+            Stack(
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.redAccent[100],
+                  ),
+                  child: Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                ),
+                Positioned(
+                  right: -3,
+                  bottom: 20,
+                  top: -4,
+                  child: Container(
+                    width: 15,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '1',
+                        style: TextStyle(
+                          fontSize: 8,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.redAccent[100],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
         ],
       ),

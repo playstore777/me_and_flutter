@@ -53,6 +53,7 @@ class _BurgerScreenState extends State<BurgerScreen> {
                         icon: Icon(
                           Icons.favorite_border_outlined,
                           color: Colors.red[200],
+                          size: 35,
                         ),
                         onPressed: () {},
                       ),
@@ -75,6 +76,7 @@ class _BurgerScreenState extends State<BurgerScreen> {
                           icon: Icon(
                             Icons.share,
                             color: Colors.red[200],
+                            size: 35,
                           ),
                           onPressed: () {},
                         ),
@@ -129,7 +131,10 @@ class _BurgerScreenState extends State<BurgerScreen> {
                               children: [
                                 FittedBox(
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      print(
+                                          'remove icon button from burger_screen');
+                                    },
                                     icon: Icon(
                                       Icons.remove,
                                       color: Colors.red[300],
@@ -147,7 +152,10 @@ class _BurgerScreenState extends State<BurgerScreen> {
                                 ),
                                 FittedBox(
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      print(
+                                          'add icon button from burger_screen');
+                                    },
                                     icon: Icon(
                                       Icons.add,
                                       color: Colors.red[300],
@@ -294,6 +302,7 @@ class _BurgerScreenState extends State<BurgerScreen> {
                     '\$$price',
                     style: TextStyle(
                       color: Colors.red[300],
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
