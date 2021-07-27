@@ -126,7 +126,7 @@ class DetailsScreen extends StatelessWidget {
                   right: screenWidth * 0.22,
                   top: screenHeight * 0.05,
                   child: Hero(
-                    tag: 'myHeroAnimationTag',
+                    tag: 'myHeroAnimationTag$image',
                     child: Container(
                       width: screenWidth * 0.6,
                       child: Image(

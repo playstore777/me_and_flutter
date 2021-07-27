@@ -190,7 +190,7 @@ class ProductContainer extends StatelessWidget {
             right: containerWidth / 2 * 0.36,
             top: (containerHeight * 0.03),
             child: Hero(
-              tag: 'myHeroAnimationTag',
+              tag: 'myHeroAnimationTag$image',
               child: Container(
                 width: containerWidth * 0.3,
                 height: containerHeight * 0.20,

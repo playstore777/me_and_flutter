@@ -12,7 +12,7 @@ class IntroTextReusable extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'SEARCH FOR',
+              firstText.toString(),
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 30,
@@ -20,7 +20,7 @@ class IntroTextReusable extends StatelessWidget {
               ),
             ),
             Text(
-              'RECIPES',
+              secondText.toString(),
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 30,
