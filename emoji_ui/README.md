@@ -4,6 +4,9 @@ A new Flutter project.
 
 ## Getting Started
 
+![Home Screen of emoji_ui app](screenshots/home_screen.png)
+![Home Screen of emoji_ui app](screenshots/detail_screen.png)
+
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
