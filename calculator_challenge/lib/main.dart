@@ -1,8 +1,10 @@
 import 'package:calculator_challenge/providers/calculator_provider.dart';
-import 'package:flutter/material.dart';
+import 'package:calculator_challenge/routes/route_generator.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/home_screen.dart';
+
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,10 +20,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ChangeNotifierProvider(
-        create: (_) => Calculator(),
-        child: HomeScreen(),
-      ),
+      initialRoute: '/',
+      onGenerateRoute: GenerateAllCalculatorRoutes.generateRoute,
     );
   }
 }

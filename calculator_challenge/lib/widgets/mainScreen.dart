@@ -1,3 +1,4 @@
+import 'package:calculator_challenge/notes_main.dart';
 import 'package:calculator_challenge/providers/calculator_provider.dart';
 import 'package:calculator_challenge/screens/text_screen.dart';
 import 'package:flutter/material.dart';
@@ -244,11 +245,10 @@ class _MainScreenState extends State<MainScreen> {
           _providerData.isEqualsTo();
           setState(() {});
           if (_providerData.isNavTime) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (ctx) => TextScreen(),
-              ),
-            );
+            // print('context in _calculatorButton: $context');
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: ((ctx) => AppEntry(context))));
+            return;
           }
         } else {
           _providerData.text += symbol;
@@ -300,5 +300,9 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
     );
+  }
+
+  void afterNavigatorPop() {
+    setState(() {});
   }
 }

@@ -1,6 +1,6 @@
-import 'package:calculator_challenge/providers/calculator_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../providers/calculator_provider.dart';
 
 class SettingScreen extends StatefulWidget {
   final providerData;
@@ -27,7 +27,7 @@ class _SettingScreenState extends State<SettingScreen> {
           ElevatedButton(
             child: Text('Submit'),
             onPressed: () {
-              widget.providerData
+              widget.providerData[0]
                   .secretTextSetter(_textEditingController.text.toString());
             },
           )
